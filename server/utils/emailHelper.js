@@ -55,9 +55,15 @@ async function EmailHelper(templateName, receiverEmail, creds) {
     });
 
     await transporter.sendMail(emailDetails);
-    console.log("Email sent successfully");
+    return {
+      success: true,
+      message: "Email sent successfully",
+    };
   } catch (err) {
-    console.log("Error sending email: ", err);
+    return {
+      success: false,
+      message: "Failed to send email",
+    };
   }
 }
 

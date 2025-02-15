@@ -115,19 +115,15 @@ const ShowModal = ({
   const getData = async () => {
     try {
       setLoading(true);
-
       const movieResponse = await getAllMovies();
       if (movieResponse.success) {
         setMovies(movieResponse.data);
       } else {
         message.error(movieResponse.message || "Failed to fetch movies");
       }
-      console.log("movie Response : ", movieResponse);
-      console.log("Selected theater Id: ", selectedTheater._id);
       const showResponse = await getShowsByTheater({
         theaterId: selectedTheater._id,
       });
-      console.log("show Response : ", showResponse);
 
       if (showResponse.success) {
         setShows(showResponse.data);
@@ -161,7 +157,6 @@ const ShowModal = ({
         });
       }
 
-      console.log("add show/ update show response: ", response);
       if (response.success) {
         getData();
         message.success(response.message);
@@ -241,7 +236,6 @@ const ShowModal = ({
       {view === "table" && (
         <Table dataSource={shows} columns={columns} rowKey="_id" />
       )}
-      {console.log("Shows: ", shows)}
 
       {(view === "add" || view === "edit") && (
         <Form

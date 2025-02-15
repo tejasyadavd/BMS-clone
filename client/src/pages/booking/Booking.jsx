@@ -14,7 +14,6 @@ const Booking = () => {
     try {
       setLoading(true);
       const response = await getAllBookings({ userId: user._id });
-      console.log("get all bookings response: ", response.data);
 
       if (response.success) {
         setBookings(response.data);

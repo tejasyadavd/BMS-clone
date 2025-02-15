@@ -5,7 +5,6 @@ const EmailHelper = require("../utils/emailHelper");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const makePayment = async (req, res) => {
-  console.log("Req body: ", req.body);
   try {
     const { token, amount } = req.body;
     const customer = await stripe.customers.create({
@@ -27,7 +26,6 @@ const makePayment = async (req, res) => {
       data: transactionId,
     });
   } catch (err) {
-    console.log("Error while making payment: ", err);
     res.status(500).send({
       success: false,
       message: "Failed to make payment",
@@ -63,7 +61,6 @@ const bookShow = async (req, res) => {
           model: "Theaters",
         },
       });
-    console.log("Populate booking: ", populateBookingInfo);
 
     await EmailHelper("ticketTemplate.html", populateBookingInfo.user.email, {
       name: populateBookingInfo.user.name,
@@ -83,10 +80,9 @@ const bookShow = async (req, res) => {
       data: newBooking,
     });
   } catch (err) {
-    console.log("Error occured while saving book show: ", err);
     res.status(500).send({
       success: false,
-      message: "Server error",
+      message: "Internal Server Error",
     });
   }
 };
@@ -111,7 +107,6 @@ const getAllBookings = async (req, res) => {
         },
       });
 
-    console.log("GetAll bookings user: ", bookings);
     res.status(200).json({
       success: true,
       data: bookings,

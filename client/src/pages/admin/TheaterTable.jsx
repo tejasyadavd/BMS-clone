@@ -10,7 +10,6 @@ const TheaterTable = () => {
     try {
       setLoading(true);
       const response = await getAllTheaterForAdmin();
-      console.log("Response Success: ", response.success);
       if (response && response.success) {
         const allTheater = response.data;
         setTheaters(
@@ -40,7 +39,6 @@ const TheaterTable = () => {
       };
 
       const response = await updateTheater(values);
-      console.log("Response: ", theaters);
       if (response && response.success) {
         message.success(response.message);
         getData();

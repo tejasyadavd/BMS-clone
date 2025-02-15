@@ -2,7 +2,6 @@ const Theater = require("../model/theaterModel");
 
 const addTheater = async (req, res) => {
   try {
-    console.log("Theater Request Body: ", req.body);
     const newTheater = new Theater(req.body);
     await newTheater.save();
     res.status(200).send({
@@ -43,7 +42,6 @@ const getAllTheater = async (req, res) => {
 
 const getAllTheatersForOwner = async (req, res) => {
   try {
-    console.log("Owner Id: ", req.params.ownerId);
     const allTheaters = await Theater.find({ owner: req.params.ownerId });
     res.status(200).send({
       success: true,
@@ -60,7 +58,6 @@ const getAllTheatersForOwner = async (req, res) => {
 
 const getTheaterById = async (req, res) => {
   try {
-    console.log("Request body theater id: ", req.body.id);
     const getTheaterId = await Theater.findById(req.body.id);
     if (getTheaterId) {
       res.status(200).send({
@@ -84,7 +81,6 @@ const getTheaterById = async (req, res) => {
 
 const updateTheater = async (req, res) => {
   try {
-    console.log("Request body theaterId: ", req.body.theaterId);
     const updateTheaters = await Theater.findByIdAndUpdate(
       req.body.theaterId,
       req.body
@@ -111,7 +107,6 @@ const updateTheater = async (req, res) => {
 
 const deleteTheater = async (req, res) => {
   try {
-    console.log("Request body theaterId: ", req.params.theaterId);
     const deleteTheaters = await Theater.findByIdAndDelete(
       req.params.theaterId
     );

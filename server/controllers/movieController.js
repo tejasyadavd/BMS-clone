@@ -2,7 +2,6 @@ const Movie = require("../model/movieModel");
 
 const addMovie = async (req, res) => {
   try {
-    console.log("request Body:", req.body);
     const newMovie = new Movie(req.body);
     await newMovie.save();
 
@@ -12,7 +11,6 @@ const addMovie = async (req, res) => {
       data: newMovie,
     });
   } catch (err) {
-    console.log("Error adding movie:", err);
     res.status(500).send({
       success: false,
       message: err.message,
@@ -74,7 +72,6 @@ const updateMovie = async (req, res) => {
       req.body
     );
     if (!updateMovie) {
-      console.log("UpdateMovie: ", updateMovies.movieName);
       res.send({
         success: false,
         message: `${updateMovies.movieName} not found`,
@@ -96,7 +93,6 @@ const updateMovie = async (req, res) => {
 
 const deleteMovie = async (req, res) => {
   try {
-    console.log("req.body: ", req.body.movieId);
     const deleteMovies = await Movie.findByIdAndDelete(req.body.movieId);
 
     res.status(200).send({

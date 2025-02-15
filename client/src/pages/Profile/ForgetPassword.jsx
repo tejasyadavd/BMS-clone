@@ -11,7 +11,6 @@ const ForgetPassword = () => {
   const loading = useSelector((state) => state.loaders.loading);
 
   const onFinish = async (values) => {
-    console.log("on Finish values: ", values);
     try {
       dispatch(ShowLoading());
       const response = await forgetPassword(values);
@@ -21,15 +20,10 @@ const ForgetPassword = () => {
         alert("OTP sent to your email");
         navigate(`/reset/${encodeURIComponent(values.email)}`);
       } else {
-        console.log(
-          "Error while calling custom forgot password instances: ",
-          response.message
-        );
         message.error(response.message);
       }
       dispatch(HideLoading());
     } catch (err) {
-      console.log("Error: ", err);
       message.error(err.message);
       dispatch(HideLoading());
     }

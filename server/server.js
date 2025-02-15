@@ -16,8 +16,8 @@ app.use(helmet());
 app.use(mongoSanitize());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -37,7 +37,7 @@ const showRoutes = require("./routes/showRoute");
 const auth = require("./middlewares/authMiddleware");
 const bookingRoutes = require("./routes/bookingRoute");
 
-const clientBuildPath = path.join(__dirname, "../client/build");
+const clientBuildPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientBuildPath));
 
 app.use("/api/", apiLimiter);
@@ -52,7 +52,6 @@ app.get("*", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
   res.status(500).json({
     success: false,
     message: "Internal Server Error",
@@ -65,6 +64,4 @@ app.use((req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on Port: ${PORT}`);
-});
+app.listen(PORT);

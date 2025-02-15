@@ -34,7 +34,6 @@ const Login = () => {
   }
 
   const onFinish = async (values) => {
-    console.log(values);
     try {
       const response = await LoginUser(values);
 
@@ -48,7 +47,7 @@ const Login = () => {
 
       form.resetFields();
     } catch (err) {
-      console.log(err.response?.data?.message || "An error accurred");
+      message.error(err.response?.data?.message || "An error accurred");
     }
   };
 

@@ -23,7 +23,6 @@ const Home = () => {
       }
       setLoading(false);
     } catch (err) {
-      console.log("Error while getting all movies ", err);
       message.error("Error while getting all movies");
     } finally {
       setLoading(false);
@@ -32,7 +31,6 @@ const Home = () => {
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
-    console.log("SearchText: ", searchText);
   };
 
   useEffect(() => {

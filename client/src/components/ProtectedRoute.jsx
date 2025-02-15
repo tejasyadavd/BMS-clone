@@ -49,7 +49,6 @@ const ProtectedRoute = ({ children }) => {
             <Link
               to="/login"
               onClick={() => {
-                console.log("clicked on logout");
                 localStorage.removeItem("token");
               }}
             >
@@ -69,7 +68,6 @@ const ProtectedRoute = ({ children }) => {
       try {
         dispatch(ShowLoading());
         const response = await GetCurrentUser();
-        console.log(response);
 
         if (!response.success) {
           message.error(response.message);
@@ -81,7 +79,6 @@ const ProtectedRoute = ({ children }) => {
           dispatch(setUser(response.data));
         }
       } catch (err) {
-        console.log(err);
         message.error("Please Login again");
         localStorage.removeItem("token");
 

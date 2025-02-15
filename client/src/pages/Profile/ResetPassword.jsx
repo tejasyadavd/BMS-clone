@@ -12,7 +12,6 @@ const ResetPassword = () => {
   const loading = useSelector((state) => state.loaders.loading);
 
   const onFinish = async (values) => {
-    console.log("forgot password values: ", values, " ", email);
     try {
       dispatch(ShowLoading());
       const response = await resetPassword(values, email);
@@ -22,14 +21,9 @@ const ResetPassword = () => {
       } else {
         alert("Invalid OTP");
         message.error(response.message || "Failed to reset password");
-        console.log(
-          "Error while calling custom reset password instances: ",
-          response.message
-        );
       }
       dispatch(HideLoading());
     } catch (err) {
-      console.log("Error:", err);
       message.error(err.message || "Something went wrong");
     } finally {
       dispatch(HideLoading());

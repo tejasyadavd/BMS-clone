@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 const register = async (req, res) => {
   try {
     const userExists = await User.findOne({ email: req.body.email });
-    console.log("userExists: ", userExists);
     if (userExists) {
       return res.status(409).send({
         success: false,
@@ -22,7 +21,6 @@ const register = async (req, res) => {
       });
 
       await newUser.save();
-
       res.status(200).send({
         success: true,
         message: "User registered successfully, Please login",
@@ -42,7 +40,6 @@ const login = async (req, res) => {
     const user = await User.findOne({
       email: req.body.email,
     });
-    console.log("usercontroller login: ", user);
     if (!user) {
       return res.status(400).send({
         success: false,
@@ -52,7 +49,6 @@ const login = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    console.log("token", token);
 
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
@@ -112,7 +108,6 @@ const forgotPassword = async (req, res) => {
       message: "OTP sent to your email",
     });
   } catch (err) {
-    console.log("Unable to generate OTP: ", err);
     res.status(500).send({
       success: false,
       message: "Unable to send OTP",
@@ -129,7 +124,7 @@ const resetPassword = async (req, res) => {
         message: "Password and OTP is required",
       });
     }
-    console.log("resetDetails: ", resetDetails);
+
     const user = await User.findOne({ otp: resetDetails.otp });
     if (user === null) {
       return res.status(404).json({
@@ -161,7 +156,6 @@ const resetPassword = async (req, res) => {
       message: "Password reset successfully",
     });
   } catch (err) {
-    console.log("Unable to reset the password: ", err);
     res.status(500).send({
       success: false,
       message: "Unable to reset the password",
@@ -170,13 +164,8 @@ const resetPassword = async (req, res) => {
 };
 
 const getCurrentUser = async (req, res) => {
-  console.log(req.url, req.method);
-
   try {
-    console.log("header token ", req.headers["authorization"]);
-
     const user = await User.findById(req.body.userId).select("-password");
-    console.log("getcurrentuser controller: ", user);
 
     if (!user) {
       return res.status(401).send({

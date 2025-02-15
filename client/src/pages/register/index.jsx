@@ -24,10 +24,8 @@ const Register = () => {
   }
 
   const onFinish = async (values) => {
-    console.log(values);
     try {
       const response = await RegisterUser(values);
-      console.log(response);
       if (response && response.success) {
         message.success(response.message);
       } else {
@@ -35,7 +33,7 @@ const Register = () => {
       }
       form.resetFields();
     } catch (err) {
-      console.log(err);
+      message.error(err.message);
     }
   };
   return (

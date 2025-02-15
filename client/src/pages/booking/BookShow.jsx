@@ -24,13 +24,11 @@ const BookShow = () => {
 
         if (response.success) {
           setShow(response.data);
-          console.log("Response data: ", response.data);
         } else {
           message.error(response.message);
         }
       } catch (err) {
         message.error(err.message);
-        console.log("Error: ", err);
       } finally {
         setLoading(false);
       }
@@ -123,7 +121,6 @@ const BookShow = () => {
         token,
         selectedSeats.length * show.ticketPrice
       );
-      console.log("Response make payment: ", response);
 
       if (response && response.success) {
         message.success(response.message);
@@ -132,7 +129,6 @@ const BookShow = () => {
         message.error(response?.message || "Payment failed, please try again");
       }
     } catch (err) {
-      console.log("Error: ", err);
       message.error(err?.message || "Something went wrong");
     } finally {
       setLoading(false);
@@ -156,7 +152,6 @@ const BookShow = () => {
         message.error(response.message);
       }
     } catch (err) {
-      console.log("Error in book: ", err);
       message.error(err.message);
     } finally {
       setTimeout(() => {
@@ -212,7 +207,6 @@ const BookShow = () => {
               {/* Rendering dynamic seat layout */}
               {getSeats()}
 
-              {/* Checkout */}
               {selectedSeats.length > 0 && (
                 <StripeCheckout
                   name="Book Ticket"

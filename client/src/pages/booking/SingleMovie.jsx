@@ -140,10 +140,10 @@ const SingleMovie = () => {
                     const showDateTime = moment(
                       `${date} ${singleShow.time}`,
                       "YYYY-MM-DD HH:mm"
-                    ); // Full Date and Time
-                    const currentTime = moment(); // current date & time
+                    );
+                    const currentTime = moment();
 
-                    return showDateTime.isAfter(currentTime); // Only show future shows
+                    return showDateTime.isAfter(currentTime);
                   });
 
                   if (upcomingShows.length === 0) return null;

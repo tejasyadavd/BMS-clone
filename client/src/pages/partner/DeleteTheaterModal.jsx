@@ -15,7 +15,6 @@ const DeleteTheaterModal = ({
     try {
       setLoading(true);
       const theaterId = selectedTheatre._id;
-      console.log("TheaterId to delete: ", theaterId);
       const response = await deleteTheater(theaterId);
       if (response.success) {
         message.success(response.message);
@@ -27,7 +26,6 @@ const DeleteTheaterModal = ({
       setIsDeleteModalOpen(false);
     } catch (error) {
       message.error(error.message);
-
       setIsDeleteModalOpen(false);
     } finally {
       setTimeout(() => {

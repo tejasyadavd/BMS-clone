@@ -21,7 +21,6 @@ const TheaterList = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      console.log("User Id: ", user._id);
       if (!user?._id) {
         throw new Error("User Id is missing");
       }
