@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const rateLimit = require("express-rate-limit");
+//const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const path = require("path");
 
@@ -25,12 +25,12 @@ app.use(express.json());
 
 app.set("trust proxy", 1);
 
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: "Too many request from this IP, please try again after 15 minutes",
-});
-app.use(apiLimiter);
+// const apiLimiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100,
+//   message: "Too many request from this IP, please try again after 15 minutes",
+// });
+// app.use(apiLimiter);
 
 const userRoutes = require("./routes/userRoute");
 const movieRoutes = require("./routes/movieRoute");
@@ -42,7 +42,7 @@ const bookingRoutes = require("./routes/bookingRoute");
 const clientBuildPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientBuildPath));
 
-app.use("/api/", apiLimiter);
+// app.use("/api/", apiLimiter);
 app.use("/api/users", userRoutes);
 app.use("/api/movies", auth, movieRoutes);
 app.use("/api/theaters", auth, theaterRoutes);
