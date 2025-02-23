@@ -9,7 +9,7 @@ const path = require("path");
 
 const connectDB = require("./config/dbconfig");
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 connectDB();
 
 app.use(helmet());
@@ -66,4 +66,4 @@ app.use((req, res) => {
   });
 });
 
-app.listen(PORT, () => console.log(`server running on port ${PORT}`));
+app.listen(PORT);
