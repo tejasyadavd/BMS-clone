@@ -23,6 +23,19 @@ app.use(
 );
 app.use(express.json());
 
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://checkout.stripe.com"],
+      frameSrc: ["'self'", "https://checkout.stripe.com"],
+      connectSrc: ["'self'", "https://api.stripe.com"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  })
+);
+
 app.set("trust proxy", 1);
 
 // const apiLimiter = rateLimit({
@@ -38,6 +51,7 @@ const theaterRoutes = require("./routes/theaterRoute");
 const showRoutes = require("./routes/showRoute");
 const auth = require("./middlewares/authMiddleware");
 const bookingRoutes = require("./routes/bookingRoute");
+const { Script } = require("vm");
 
 const clientBuildPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientBuildPath));
