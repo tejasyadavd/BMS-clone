@@ -16,12 +16,14 @@ app.use(helmet());
 app.use(mongoSanitize());
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(express.json());
+
+app.set("trust proxy", 1);
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -64,4 +66,4 @@ app.use((req, res) => {
   });
 });
 
-app.listen(PORT);
+app.listen(PORT, () => console.log(`server running on port ${PORT}`));
