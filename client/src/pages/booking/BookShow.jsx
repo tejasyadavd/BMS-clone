@@ -185,9 +185,6 @@ const BookShow = () => {
               extra={
                 <div className="show-name py-3">
                   <h3>
-                    <span>Show Name:</span> {show.name}
-                  </h3>
-                  <h3>
                     <span>Date & Time: </span>
                     {moment(show.date).format("MMM Do YYYY")} at{" "}
                     {moment(show.time, "HH:mm").format("hh:mm A")}

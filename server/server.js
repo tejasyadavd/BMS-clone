@@ -29,6 +29,7 @@ app.use(
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "https://checkout.stripe.com"],
       frameSrc: ["'self'", "https://checkout.stripe.com"],
+      imgSrc: ["'self'", "data:", "https://checkout.stripe.com"],
       connectSrc: ["'self'", "https://api.stripe.com"],
       objectSrc: ["'none'"],
       upgradeInsecureRequests: [],
@@ -51,7 +52,6 @@ const theaterRoutes = require("./routes/theaterRoute");
 const showRoutes = require("./routes/showRoute");
 const auth = require("./middlewares/authMiddleware");
 const bookingRoutes = require("./routes/bookingRoute");
-const { Script } = require("vm");
 
 const clientBuildPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientBuildPath));
