@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getShowById } from "../../api/shows";
 import { message, Card, Row, Col, Button, Spin } from "antd";
@@ -52,9 +52,7 @@ const BookShow = () => {
         }}
       >
         <div className="w-100 max-width-600 mx-auto mb-25px">
-          <p className="text-center mb-10px">
-            Screen this side, you will be watching in this direction
-          </p>
+          <p className="text-center mb-10px">Screen this side</p>
           <div className="screen-div">
             {/* Placeholder for screen display */}
           </div>

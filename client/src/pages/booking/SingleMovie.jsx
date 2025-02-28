@@ -8,13 +8,11 @@ import { getAllTheatersByMovie } from "../../api/shows";
 
 const SingleMovie = () => {
   const params = useParams();
-  console.log(params);
   const [movie, setMovie] = useState();
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const [theaters, setTheaters] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  console.log("Redux Loading State: ", loading);
 
   const handleDate = (event) => {
     const inputValue = event.target.value;

@@ -13,7 +13,6 @@ import { ShowLoading, HideLoading } from "../redux/loaderSlice";
 import { message, Layout, Menu, Spin } from "antd";
 
 const ProtectedRoute = ({ children }) => {
-  console.log("Children: ", children);
   const { user } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -127,7 +126,7 @@ const ProtectedRoute = ({ children }) => {
               alignItems: "center",
             }}
           >
-            <h3 className="demo-logo text-white m-0">BookMyShow</h3>
+            <h3 className="demo-logo text-white m-0">FilmFlix</h3>
             <Menu theme="dark" mode="horizontal" items={navItems}></Menu>
           </Header>
           {/* The section to render any child component */}
@@ -151,8 +150,8 @@ const ProtectedRoute = ({ children }) => {
           >
             <div>
               <p style={{ fontSize: "16px", marginBottom: "5px" }}>
-                &copy; {new Date().getFullYear()} BookMyShow Clone. All rights
-                reserved.
+                &copy; {new Date().getFullYear()} Movie Ticket Booking App. All
+                rights reserved.
               </p>
             </div>
           </Footer>

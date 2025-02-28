@@ -1,5 +1,4 @@
 const Booking = require("../model/bookingModel");
-const movieShowModel = require("../model/showModel");
 const Show = require("../model/showModel");
 const EmailHelper = require("../utils/emailHelper");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
