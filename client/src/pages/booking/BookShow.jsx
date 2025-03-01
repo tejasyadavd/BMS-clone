@@ -111,10 +111,23 @@ const BookShow = () => {
   };
 
   const onToken = async (token) => {
-    console.log("token: ", token);
-
     try {
       setLoading(true);
+      const updatedShow = await getShowById({ showId: params.id });
+
+      const unavailableSeats = selectedSeats.filter((seat) =>
+        updatedShow.data.bookedSeats.includes(seat)
+      );
+
+      if (unavailableSeats.length > 0) {
+        message.error(
+          `Seats ${unavailableSeats.join(", ")} are already booked.`
+        );
+        setSelectedSeats([]);
+        setLoading(false);
+        return;
+      }
+
       const response = await makePayment(
         token,
         selectedSeats.length * show.ticketPrice
