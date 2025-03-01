@@ -34,10 +34,35 @@ const makePayment = async (req, res) => {
 
 const bookShow = async (req, res) => {
   try {
+    // Fetch the latest show details with booked seats
+    const show = await Show.findById(req.body.show).populate("movie");
+
+    if (!show) {
+      return res.status(404).json({
+        success: false,
+        message: "Show not found.",
+      });
+    }
+
+    // Check if any selected seat is already booked
+    const alreadyBookedSeats = req.body.seats.filter((seat) =>
+      showData.bookedSeats.includes(seat)
+    );
+
+    if (alreadyBookedSeats.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Seats ${alreadyBookedSeats.join(
+          ", "
+        )} are no longer available.`,
+      });
+    }
+
+    // Proceed with booking
     const newBooking = new Booking(req.body);
     await newBooking.save();
 
-    const show = await Show.findById(req.body.show).populate("movie");
+    //Update booked seats in the show document
     const updateBookingSeats = [...show.bookedSeats, ...req.body.seats];
     await Show.findByIdAndUpdate(req.body.show, {
       bookedSeats: updateBookingSeats,
