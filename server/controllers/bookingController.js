@@ -46,7 +46,7 @@ const bookShow = async (req, res) => {
 
     // Check if any selected seat is already booked
     const alreadyBookedSeats = req.body.seats.filter((seat) =>
-      showData.bookedSeats.includes(seat)
+      show.bookedSeats.includes(seat)
     );
 
     if (alreadyBookedSeats.length > 0) {
