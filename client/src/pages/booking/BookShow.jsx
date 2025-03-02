@@ -130,7 +130,9 @@ const BookShow = () => {
 
       const response = await makePayment(
         token,
-        selectedSeats.length * show.ticketPrice
+        selectedSeats.length * show.ticketPrice,
+        selectedSeats,
+        params.id
       );
 
       if (response && response.success) {

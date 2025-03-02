@@ -1,10 +1,12 @@
 import { axiosInstance } from ".";
 
-export const makePayment = async (token, amount) => {
+export const makePayment = async (token, amount, seats, showId) => {
   try {
     const response = await axiosInstance.post("/bookings/make-payment", {
       token,
       amount,
+      seats,
+      showId,
     });
     return response.data;
   } catch (err) {
