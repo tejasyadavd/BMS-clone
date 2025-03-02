@@ -5,7 +5,29 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const makePayment = async (req, res) => {
   try {
-    const { token, amount } = req.body;
+    const { token, amount, seats, showId } = req.body;
+
+    const show = await Show.findById(showId);
+    if (!show) {
+      return res.status(404).json({
+        success: false,
+        message: "Show not found",
+      });
+    }
+
+    const alreadyBookedSeats = seats.filter((seat) =>
+      show.bookedSeats.includes(seat)
+    );
+
+    if (alreadyBookedSeats.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Seats ${alreadyBookedSeats.join(
+          ", "
+        )} are no longer available.`,
+      });
+    }
+
     const customer = await stripe.customers.create({
       source: token.id,
       email: token.email,
